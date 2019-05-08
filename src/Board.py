@@ -5,8 +5,6 @@ class Board:
     def __init__(self, x, y, surface, title):
         self.__x = x
         self.__y = y
-        self.__width = 45
-        self.__height = 45
         self.__surf = surface
 
     def draw(self):
