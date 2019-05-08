@@ -1,26 +1,22 @@
-import sys, pygame
+import pygame as py
+import sys
+from src import Board
 
-pygame.init()
+py.init()
 
-size = width, height = 620, 640
-speed = [1, 1]
+size = width, height = 1000, 540
 black = 0, 0, 0
 white = 225, 225, 225
 
-screen = pygame.display.set_mode(size)
-
-ship_element = pygame.Rect(100, 100, 10, 10)
+screen = py.display.set_mode(size)
+board_player = Board.Board(40, 80, screen, "Player")
+board_ai = Board.Board(560, 80, screen, "AI")
 
 while 1:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: sys.exit()
-
-    ship_element = ship_element.move(speed)
-    if ship_element.left < 0 or ship_element.right > width:
-        speed[0] = -speed[0]
-    if ship_element.top < 0 or ship_element.bottom > height:
-        speed[1] = -speed[1]
+    for event in py.event.get():
+        if event.type == py.QUIT: sys.exit()
 
     screen.fill(black)
-    pygame.draw.rect(screen, white, ship_element)
-    pygame.display.flip()
+    board_player.draw()
+    board_ai.draw()
+    py.display.flip()
