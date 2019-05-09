@@ -13,8 +13,8 @@ class Board:
         for i in range(10):
             for j in range(10):
                 py.draw.rect(self.__surf, (255, 255, 255), (x, y, 40, 40), 1)
-                x += 40
-            y += 40
+                x += 39
+            y += 39
             x = self.__x
 
         font = py.font.SysFont("timesnewroman", 23)
@@ -26,11 +26,11 @@ class Board:
         y = self.__y - 28
         for i in text_top:
             self.__surf.blit(i, (x, y))
-            x += 41
+            x += 40
 
         # Drawing side number coordinates
         x = self.__x - 18
-        y = self.__y + 3
+        y = self.__y + 4
         for i in text_side:
             self.__surf.blit(i, (x, y))
-            y += 41
+            y += 39
