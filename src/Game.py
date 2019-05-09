@@ -19,14 +19,14 @@ tmp_mouse = (0, 0)
 
 while 1:
     for event in py.event.get():
+        # Handling close event
         if event.type == py.QUIT: sys.exit()
+        # Handling click event
+        if event.type == py.MOUSEBUTTONUP:
+            board_player.on_click(py.mouse.get_pos())
 
     screen.fill(black)
     board_player.draw()
     board_ai.draw()
     py.display.flip()
 
-    mouse_pos = py.mouse.get_pos()
-    if mouse_pos != tmp_mouse:
-        print(py.mouse.get_pos())
-        tmp_mouse = mouse_pos

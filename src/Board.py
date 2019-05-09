@@ -2,18 +2,17 @@ import pygame as py
 
 class BoardSegment:
     def __init__(self, x, y, surface):
-        # self.__x = x
-        # self.__y = y
-        # self.__width = 40
-        # self.__height = 40
         self.__rect = py.Rect(x, y, 40, 40)
         self.__surf = surface
-
-    def make_active(self):
-        py.draw.rect(self.__surf, (255, 0, 0), (self.__x + 10, self.__y + 10, 20, 20), 1)
+        self.is_active = False
 
     def draw(self):
-        py.draw.rect(self.__surf, (255, 255, 255),self.__rect, 1)
+        py.draw.rect(self.__surf, (255, 255, 255), self.__rect, 1)
+        if self.is_active:
+            py.draw.rect(self.__surf, (255, 0, 0), (self.__rect.x + 10, self.__rect.y + 10, 20, 20))
+
+    def get_rect(self):
+        return self.__rect
 
 
 class Board:
@@ -34,6 +33,15 @@ class Board:
                 x += 39
             y += 39
             x = self.__x
+
+    def on_click(self, pos):
+        for segment in self.__segments:
+            if segment.get_rect().collidepoint(pos[0], pos[1]):
+                print("Collided at", pos)
+                if not segment.is_active:
+                    segment.is_active = True
+                else:
+                    segment.is_active = False
 
     def draw(self):
         for i in self.__segments:
