@@ -15,7 +15,8 @@ screen = py.display.set_mode(size)
 board_player = Board.Board(40, 80, screen, "Player")
 board_ai = Board.Board(560, 80, screen, "AI")
 
-tmp_mouse = (0, 0)
+fps = 15
+clock = py.time.Clock()
 
 while 1:
     for event in py.event.get():
@@ -29,4 +30,4 @@ while 1:
     board_player.draw()
     board_ai.draw()
     py.display.flip()
-
+    clock.tick(fps)

@@ -29,19 +29,31 @@ class Board:
         for i in range(10):
             for j in range(10):
                 seg = BoardSegment(x, y, self.__surf)
+                # Ex. segment B1 has index 11
+                # TODO Maybe find simpler solution?
                 self.__segments.append(seg)
                 x += 39
             y += 39
             x = self.__x
 
     def on_click(self, pos):
+        i = 0
         for segment in self.__segments:
             if segment.get_rect().collidepoint(pos[0], pos[1]):
-                print("Collided at", pos)
-                if not segment.is_active:
+                if not self.__segments[i-1].is_active and not self.__segments[i+1].is_active\
+                        and not self.__segments[i-10].is_active and not self.__segments[i+10].is_active :
                     segment.is_active = True
-                else:
-                    segment.is_active = False
+            else:
+                i += 1
+
+
+        # ----------------- Testing code -----------------
+        # for segment in self.__segments:
+        #     if segment.get_rect().collidepoint(pos[0], pos[1]):
+        #         if not segment.is_active:
+        #             segment.is_active = True
+        #         else:
+        #             segment.is_active = False
 
     def draw(self):
         for i in self.__segments:
