@@ -1,4 +1,5 @@
 import pygame as py
+from src import Ship
 
 class BoardSegment:
     def __init__(self, x, y, surface):
@@ -42,7 +43,7 @@ class Board:
             if segment.get_rect().collidepoint(pos[0], pos[1]):
                 if not self.__segments[i-1].is_active and not self.__segments[i+1].is_active\
                         and not self.__segments[i-10].is_active and not self.__segments[i+10].is_active :
-                    segment.is_active = True
+                        ship = Ship.Ship()
             else:
                 i += 1
 
