@@ -1,10 +1,12 @@
 import pygame as py
 from src import Ship
+from src.Exceptions import IncorrectShipPlacement
 
 class BoardSegment:
     def __init__(self, x, y, surface):
         self.__rect = py.Rect(x, y, 40, 40)
         self.__surf = surface
+        self.__ships = []
         self.is_active = False
 
     def draw(self):
@@ -18,11 +20,12 @@ class BoardSegment:
 
 class Board:
     """Representation of board/sea"""
-    def __init__(self, x, y, surface, title):
+    def __init__(self, x, y, surface, log, title):
         self.__x = x
         self.__y = y
         self.__surf = surface
         self.__segments = []
+        self.__log = log
         self.__font = py.font.SysFont("timesnewroman", 23)
 
         # Generating board
@@ -39,14 +42,79 @@ class Board:
             x = self.__x
 
     def on_click(self, pos):
-        i = 0
-        for segment in self.__segments:
-            if segment.get_rect().collidepoint(pos[0], pos[1]):
-                if not self.__segments[i-1].is_active and not self.__segments[i+1].is_active\
-                        and not self.__segments[i-10].is_active and not self.__segments[i+10].is_active :
-                        ship = Ship.Ship()
-            else:
-                i += 1
+        try:
+            i = 0
+            for segment in self.__segments:
+                if segment.get_rect().collidepoint(pos[0], pos[1]):
+                    if i % 10 == 0:
+                        if i == 0:
+                            if not self.__segments[1].is_active and not self.__segments[10].is_active and not\
+                                   self.__segments[11].is_active:
+                                self.__segments[i].is_active = True # TODO Creation of new ship here
+                            else:
+                                raise IncorrectShipPlacement
+                        elif i == 90:
+                            if not self.__segments[91].is_active and not self.__segments[80].is_active \
+                                    and not self.__segments[91].is_active:
+                                self.__segments[i].is_active = True # TODO Creation of new ship here
+                            else:
+                                raise IncorrectShipPlacement
+                        else:
+                            if not self.__segments[i-10].is_active and not self.__segments[i+10].is_active \
+                                    and not self.__segments[i-9].is_active and not self.__segments[i+11].is_active \
+                                    and not self.__segments[i+1].is_active:
+                                self.__segments[i].is_active = True # TODO Creation of new ship here
+                            else:
+                                raise IncorrectShipPlacement
+                    elif i % 10 == 9:
+                        if i == 9:
+                            if not self.__segments[8].is_active and not self.__segments[19].is_active and not\
+                                   self.__segments[18].is_active:
+                                self.__segments[i].is_active = True # TODO Creation of new ship here
+                            else:
+                                raise IncorrectShipPlacement
+                        elif i == 99:
+                            if not self.__segments[98].is_active and not self.__segments[89].is_active and not \
+                                    self.__segments[88].is_active:
+                                self.__segments[i].is_active = True # TODO Creation of new ship here
+                            else:
+                                raise IncorrectShipPlacement
+                        else:
+                            if not self.__segments[i-10].is_active and not self.__segments[i+10].is_active \
+                                    and not self.__segments[i+9].is_active and not self.__segments[i-11].is_active \
+                                    and not self.__segments[i-1].is_active:
+                                self.__segments[i].is_active = True # TODO Creation of new ship here
+                            else:
+                                raise IncorrectShipPlacement
+
+                    elif i > 0 and i < 10:
+                        if not self.__segments[i - 1].is_active and not self.__segments[i + 1].is_active \
+                                and not self.__segments[i + 9].is_active and not self.__segments[i + 11].is_active \
+                                and not self.__segments[i + 10].is_active:
+                            self.__segments[i].is_active = True  # TODO Creation of new ship here
+                        else:
+                            raise IncorrectShipPlacement
+
+                    elif i > 90 and i < 100:
+                        if not self.__segments[i + 1].is_active and not self.__segments[i - 1].is_active \
+                                and not self.__segments[i - 9].is_active and not self.__segments[i - 11].is_active \
+                                and not self.__segments[i - 10].is_active:
+                            self.__segments[i].is_active = True  # TODO Creation of new ship here
+                        else:
+                            raise IncorrectShipPlacement
+
+                    else:
+                        if not self.__segments[i-1].is_active and not self.__segments[i+1].is_active \
+                                and not self.__segments[i-10].is_active and not self.__segments[i+10].is_active\
+                                and not self.__segments[i-11].is_active and not self.__segments[i+11].is_active\
+                                and not self.__segments[i-9].is_active and not self.__segments[i+9].is_active:
+                            self.__segments[i].is_active = True  # TODO Creation of new ship here
+                        else:
+                            raise IncorrectShipPlacement
+                else:
+                    i += 1
+        except IncorrectShipPlacement:
+            self.__log.print("Incorrect ship placement: ships cannot be connected.")
 
 
         # ----------------- Testing code -----------------

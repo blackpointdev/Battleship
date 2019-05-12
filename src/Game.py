@@ -13,9 +13,11 @@ black = 0, 0, 0
 white = 225, 225, 225
 
 screen = py.display.set_mode(size)
-board_player = Board.Board(40, 80, screen, "Player")
-board_ai = Board.Board(560, 80, screen, "AI")
 log = Log.LogWindow(screen)
+
+board_player = Board.Board(40, 80, screen, log, "Player")
+board_ai = Board.Board(560, 80, screen, log, "AI")
+
 log.print("Battleship v. 1.0")
 log.print("Your sheep has been destroyed.", (255, 0, 0))
 
