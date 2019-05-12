@@ -1,0 +1,2 @@
+class IncorrectShipPlacement(Exception):
+    pass
