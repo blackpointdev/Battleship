@@ -23,6 +23,7 @@ class Board:
         self.__y = y
         self.__surf = surface
         self.__segments = []
+        self.__font = py.font.SysFont("timesnewroman", 23)
 
         # Generating board
         x = self.__x
@@ -60,9 +61,8 @@ class Board:
         for i in self.__segments:
             i.draw()
 
-        font = py.font.SysFont("timesnewroman", 23)
-        text_top = [font.render(x, True, (225, 225, 225)) for x in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']]
-        text_side = [font.render(str(x), True, (225, 225, 225)) for x in range(10)]
+        text_top = [self.__font.render(x, True, (225, 225, 225)) for x in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']]
+        text_side = [self.__font.render(str(x), True, (225, 225, 225)) for x in range(10)]
 
         # Drawing top letter coordinates
         x = self.__x + 10
