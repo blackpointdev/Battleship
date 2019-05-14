@@ -2,6 +2,7 @@ import pygame as py
 import sys
 from src import Board
 from src import Log
+from src import ShipMenu
 
 py.init()
 py.display.set_caption("Battleship - Marcin Wiśnios")
@@ -21,6 +22,8 @@ board_ai = Board.Board(560, 80, screen, log, "AI")
 log.print("Battleship v. 1.0")
 log.print("Your sheep has been destroyed.", (255, 0, 0))
 
+shipMenu = ShipMenu.ShipMenu(screen)
+
 fps = 15
 clock = py.time.Clock()
 
@@ -36,5 +39,6 @@ while 1:
     board_player.draw()
     board_ai.draw()
     log.draw()
+    shipMenu.draw()
     py.display.flip()
     clock.tick(fps)
