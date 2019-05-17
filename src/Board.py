@@ -8,11 +8,18 @@ class BoardSegment:
         self.__rect = py.Rect(x, y, 40, 40)
         self.__surf = surface
         self.__ships = []
-        self.is_active = False
+        self.status = -1
 
     def draw(self):
+        """
+            status == -1 - empty segment
+            status == 0 - shot but empty
+            status > 0 - part of the ship with id = status
+        """
         py.draw.rect(self.__surf, (255, 255, 255), self.__rect, 1)
-        if self.is_active:
+        if self.status == 0:
+            py.draw.rect(self.__surf, (255, 255, 0), (self.__rect.x + 10, self.__rect.y + 10, 20, 20))
+        elif self.status > 0:
             py.draw.rect(self.__surf, (255, 0, 0), (self.__rect.x + 10, self.__rect.y + 10, 20, 20))
 
     def get_rect(self):
@@ -28,7 +35,7 @@ class Board:
         self.__segments = []
         self.__log = log
         self.__font = py.font.SysFont("timesnewroman", 23)
-        self.__ship_length = 0
+        self.ship_length = 0
 
         # Generating board
         x = self.__x
@@ -44,7 +51,9 @@ class Board:
             x = self.__x
 
     def on_click(self, pos):
-        validate_ship_position(self.__segments, pos, self.__log)
+        for i in range(self.ship_length):
+            seg = validate_ship_position(self.__segments, pos, self.__log)
+            seg.status = 2
 
 
         # ----------------- Testing code -----------------
