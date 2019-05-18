@@ -23,5 +23,11 @@ class ShipMenu:
                 if i == 0:
                     self.__board.ship_length = 2
                     self.__log.print("Ship length set to 2")
+                elif i == 1:
+                    self.__board.ship_length = 3
+                    self.__log.print("Ship length set to 3")
+                elif i == 2:
+                    self.__board.ship_length = 5
+                    self.__log.print("Ship length set to 5")
             else:
                 i += 1

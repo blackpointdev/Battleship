@@ -26,7 +26,6 @@ shipMenu = ShipMenu.ShipMenu(screen, board_player, log)
 fps = 15
 clock = py.time.Clock()
 
-
 while 1:
     for event in py.event.get():
         # Handling close event
@@ -34,7 +33,7 @@ while 1:
         # Handling click event
         if event.type == py.MOUSEBUTTONUP:
             pos = py.mouse.get_pos()
-            if pos[0] > 40 and pos[0] < 400 and pos[1] > 80 and pos[1] < 480:
+            if pos[0] > 40 and pos[0] < 440 and pos[1] > 80 and pos[1] < 480:
                 board_player.on_click(pos)
             else:
                 shipMenu.on_click(pos)

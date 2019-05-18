@@ -1,6 +1,6 @@
 import pygame as py
-from src import Ship
 from src.Utility import validate_ship_position
+
 
 class BoardSegment:
     def __init__(self, x, y, surface):
@@ -60,12 +60,12 @@ class Board:
         elif self.ship_length == 0:
             self.ship_status += 1
 
-
     def draw(self):
         for i in self.__segments:
             i.draw()
 
-        text_top = [self.__font.render(x, True, (225, 225, 225)) for x in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']]
+        text_top = [self.__font.render(x, True, (225, 225, 225)) for x in ['A', 'B', 'C', 'D', 'E', 'F', 'G',
+                                                                           'H', 'I', 'J']]
         text_side = [self.__font.render(str(x), True, (225, 225, 225)) for x in range(10)]
 
         # Drawing top letter coordinates

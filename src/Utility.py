@@ -13,7 +13,6 @@ def validate_ship_position(segments, pos, log, status):
                                 segments[11].status == -1:
                             return segment
                         else:
-                            print("error1")
                             raise IncorrectShipPlacement
                     elif i == 90:
                         if (segments[91].status == -1 or segments[91].status == status) and \
@@ -21,7 +20,6 @@ def validate_ship_position(segments, pos, log, status):
                                 segments[81].status == -1:
                             return segment
                         else:
-                            print("error2")
                             raise IncorrectShipPlacement
                     else:
                         if (segments[i-10].status == -1 or segments[i-10].status == status) and \
@@ -30,7 +28,6 @@ def validate_ship_position(segments, pos, log, status):
                                 (segments[i + 1].status == -1 or segments[i + 1].status == status):
                             return segment
                         else:
-                            print("error3")
                             raise IncorrectShipPlacement
                 elif i % 10 == 9:
                     if i == 9:
@@ -39,7 +36,6 @@ def validate_ship_position(segments, pos, log, status):
                                 segments[18].status == -1:
                             return segment
                         else:
-                            print("error4")
                             raise IncorrectShipPlacement
                     elif i == 99:
                         if (segments[98].status == 1 or segments[98].status == status) and \
@@ -47,7 +43,6 @@ def validate_ship_position(segments, pos, log, status):
                                 segments[88].status == 1:
                             return segment
                         else:
-                            print("error5")
                             raise IncorrectShipPlacement
                     else:
                         if (segments[i - 10].status == -1 or segments[i - 10].status == status) and \
@@ -56,7 +51,6 @@ def validate_ship_position(segments, pos, log, status):
                                  (segments[i - 1].status == -1 or segments[i - 1].status == status):
                             return segment
                         else:
-                            print("error6")
                             raise IncorrectShipPlacement
 
                 elif i > 0 and i < 10:
@@ -66,7 +60,6 @@ def validate_ship_position(segments, pos, log, status):
                             (segments[i + 10].status == -1 or segments[i + 10].status == status):
                         return segment
                     else:
-                        print("error7")
                         raise IncorrectShipPlacement
 
                 elif i > 90 and i < 100:
@@ -76,7 +69,6 @@ def validate_ship_position(segments, pos, log, status):
                             (segments[i - 10].status == -1 or segments[i - 10].status == status):
                         return segment
                     else:
-                        print("error8")
                         raise IncorrectShipPlacement
 
                 else:
@@ -88,7 +80,6 @@ def validate_ship_position(segments, pos, log, status):
                             segments[i - 9].status == -1 and segments[i + 9].status == -1:
                         return segment
                     else:
-                        print("error9")
                         raise IncorrectShipPlacement
             else:
                 i += 1
