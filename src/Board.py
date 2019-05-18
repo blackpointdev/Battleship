@@ -55,19 +55,11 @@ class Board:
             seg = validate_ship_position(self.__segments, pos, self.__log, self.ship_status)
             if seg != None:
                 seg.status = self.ship_status
+                self.ship_length -= 1
 
-            self.ship_length -= 1
         elif self.ship_length == 0:
             self.ship_status += 1
 
-
-        # ----------------- Testing code -----------------
-        # for segment in self.__segments:
-        #     if segment.get_rect().collidepoint(pos[0], pos[1]):
-        #         if not segment.is_active:
-        #             segment.is_active = True
-        #         else:
-        #             segment.is_active = False
 
     def draw(self):
         for i in self.__segments:
