@@ -1,6 +1,5 @@
 import pygame as py
 from src import Ship
-from src.Exceptions import IncorrectShipPlacement
 from src.Utility import validate_ship_position
 
 class BoardSegment:
@@ -36,6 +35,7 @@ class Board:
         self.__log = log
         self.__font = py.font.SysFont("timesnewroman", 23)
         self.ship_length = 0
+        self.ship_status = 2
 
         # Generating board
         x = self.__x
@@ -51,9 +51,14 @@ class Board:
             x = self.__x
 
     def on_click(self, pos):
-        for i in range(self.ship_length):
-            seg = validate_ship_position(self.__segments, pos, self.__log)
-            seg.status = 2
+        if self.ship_length != 0:
+            seg = validate_ship_position(self.__segments, pos, self.__log, self.ship_status)
+            if seg != None:
+                seg.status = self.ship_status
+
+            self.ship_length -= 1
+        elif self.ship_length == 0:
+            self.ship_status += 1
 
 
         # ----------------- Testing code -----------------
