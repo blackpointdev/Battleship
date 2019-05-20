@@ -11,10 +11,14 @@ class ShipMenu:
         self.__log = log
 
     def draw(self):
-        for i in self.__borders:
+        for i, name in zip(self.__borders, ("x2", "x3", "x4", "x5")):
             py.draw.rect(self.__surface, (255, 255, 255), i, 1)
-            out = self.__font.render("x2", True, (255, 255, 255))
-            self.__surface.blit(out, (i.x + 5, i.y + 5))
+
+            rect = py.Rect(i.x + 45, i.y + 5, 20, 20)
+            py.draw.rect(self.__surface, (255, 0, 0), rect)
+
+            out = self.__font.render(name, True, (255, 255, 255))
+            self.__surface.blit(out, (i.x + 20, i.y + 5))
 
     def on_click(self, pos):
         i = 0
