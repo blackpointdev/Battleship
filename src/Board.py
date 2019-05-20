@@ -37,6 +37,7 @@ class Board:
         self.ship_length = 0
         self.ship_status = 2
         self.available = (-1, -1)
+        self.number_of_ships = [2, 2, 2, 1]
 
         # Generating board
         x = self.__x
