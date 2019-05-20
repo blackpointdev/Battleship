@@ -13,7 +13,7 @@ def validate_ship_position(segments, pos, log, status):
                                 segments[11].status == -1:
 
                             available = (1, 10)
-                            return segment, i, available
+                            return i, available
                         else:
                             raise IncorrectShipPlacement
                     elif i == 90:
@@ -22,7 +22,7 @@ def validate_ship_position(segments, pos, log, status):
                                 segments[81].status == -1:
 
                             available = (90, 91)
-                            return segment, i, available
+                            return i, available
                         else:
                             raise IncorrectShipPlacement
                     else:
@@ -32,7 +32,7 @@ def validate_ship_position(segments, pos, log, status):
                                 (segments[i + 1].status == -1 or segments[i + 1].status == status):
 
                             available = (i - 10, i + 10, i - 1, i + 1)
-                            return segment, i, available
+                            return i, available
                         else:
                             raise IncorrectShipPlacement
                 elif i % 10 == 9:
@@ -42,7 +42,7 @@ def validate_ship_position(segments, pos, log, status):
                                 segments[18].status == -1:
 
                             available = (8, 19)
-                            return segment, i, available
+                            return i, available
                         else:
                             raise IncorrectShipPlacement
                     elif i == 99:
@@ -51,7 +51,7 @@ def validate_ship_position(segments, pos, log, status):
                                 segments[88].status == 1:
 
                             available = (89, 98)
-                            return segment, i, available
+                            return i, available
                         else:
                             raise IncorrectShipPlacement
                     else:
@@ -61,7 +61,7 @@ def validate_ship_position(segments, pos, log, status):
                                  (segments[i - 1].status == -1 or segments[i - 1].status == status):
 
                             available = (i - 10, i + 10, i+1, i - 1)
-                            return segment, i, available
+                            return i, available
                         else:
                             raise IncorrectShipPlacement
 
@@ -72,7 +72,7 @@ def validate_ship_position(segments, pos, log, status):
                             (segments[i + 10].status == -1 or segments[i + 10].status == status):
 
                         available = (i - 1, i + 1, i + 10)
-                        return segment, i, available
+                        return i, available
                     else:
                         raise IncorrectShipPlacement
 
@@ -83,7 +83,7 @@ def validate_ship_position(segments, pos, log, status):
                             (segments[i - 10].status == -1 or segments[i - 10].status == status):
 
                         available = (i + 1, i - 1, i - 10)
-                        return segment, i, available
+                        return i, available
                     else:
                         raise IncorrectShipPlacement
 
@@ -96,11 +96,11 @@ def validate_ship_position(segments, pos, log, status):
                             segments[i - 9].status == -1 and segments[i + 9].status == -1:
 
                         available = (i - 1, i + 1, i - 10, i + 10)
-                        return segment, i, available
+                        return i, available
                     else:
                         raise IncorrectShipPlacement
             else:
                 i += 1
     except IncorrectShipPlacement:
-        log.print("Incorrect ship placement: ships cannot be connected.")
-        return None, -100, (-10, -10)
+        log.print("Incorrect ship placement: ships cannot be connected.", (255, 0, 0))
+        return -100, (-10, -10)
