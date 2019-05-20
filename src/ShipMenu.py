@@ -20,6 +20,8 @@ class ShipMenu:
         i = 0
         for border in self.__borders:
             if border.collidepoint(pos[0], pos[1]):
+                if self.__board.ship_length != 0:
+                    break
                 if i == 0:
                     self.__board.ship_length = 2
                     self.__log.print("Ship length set to 2")
