@@ -6,19 +6,21 @@ class ShipMenu:
         self.__font = py.font.SysFont("arial", 15)
         self.__borders = [py.Rect(x, 480, 80, 30) for x in [40, 130, 220, 310]]
         self.how_many = 0
+        self.__visible = True
 
         self.__board = board
         self.__log = log
 
     def draw(self):
-        for i, name in zip(self.__borders, ("x2", "x3", "x4", "x5")):
-            py.draw.rect(self.__surface, (255, 255, 255), i, 1)
+        if self.__visible:
+            for i, name in zip(self.__borders, ("x2", "x3", "x4", "x5")):
+                py.draw.rect(self.__surface, (255, 255, 255), i, 1)
 
-            rect = py.Rect(i.x + 45, i.y + 5, 20, 20)
-            py.draw.rect(self.__surface, (255, 0, 0), rect)
+                rect = py.Rect(i.x + 45, i.y + 5, 20, 20)
+                py.draw.rect(self.__surface, (255, 0, 0), rect)
 
-            out = self.__font.render(name, True, (255, 255, 255))
-            self.__surface.blit(out, (i.x + 20, i.y + 5))
+                out = self.__font.render(name, True, (255, 255, 255))
+                self.__surface.blit(out, (i.x + 20, i.y + 5))
 
     def on_click(self, pos):
         i = 0
@@ -54,5 +56,8 @@ class ShipMenu:
                         self.__board.number_of_ships[3] -= 1
                     else:
                         self.__log.print("You have no 5 - segments ships left", (255, 0, 0))
+                if self.__board.number_of_ships == [0, 0, 0, 0] and self.__board.ship_length == 0:
+                    self.__visible = False
+
             else:
                 i += 1
