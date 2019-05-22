@@ -1,3 +1,5 @@
+# Currently unused but left for possible refactoring
+
 from src.Utility import *
 
 class Ship:

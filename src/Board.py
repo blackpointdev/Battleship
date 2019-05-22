@@ -1,5 +1,6 @@
 import pygame as py
 from src.Utility import validate_ship_position
+from src.Utility import coord_to_index
 
 
 class BoardSegment:
@@ -31,9 +32,11 @@ class Board:
         self.__x = x
         self.__y = y
         self.__surf = surface
-        self.__segments = []
-        self.__log = log
+        self.segments = []
+        self.log = log
         self.__font = py.font.SysFont("timesnewroman", 23)
+
+        self.ships = []
         self.ship_length = 0
         self.ship_status = 2
         self.available = (-1, -1)
@@ -47,18 +50,20 @@ class Board:
                 seg = BoardSegment(x, y, self.__surf)
                 # Ex. segment B1 has index 11
                 # TODO Maybe find simpler solution?
-                self.__segments.append(seg)
+                self.segments.append(seg)
                 x += 39
             y += 39
             x = self.__x
 
     def on_click(self, pos):
         if self.ship_length != 0:
-            i, avail = validate_ship_position(self.__segments, pos, self.__log, self.ship_status)
+            index = coord_to_index(pos, self.segments)
+            i, avail = validate_ship_position(self.segments, self.__log, self.ship_status, index)
 
             if i >= 0:
                 if (self.available == (-1, -1) or (i in self.available)):
-                    self.__segments[i].status = self.ship_status
+                    self.segments[i].status = self.ship_status
+                    self.ships.append(i)
                     self.ship_length -= 1
                     if self.ship_length == 0:
                         self.ship_status += 1
@@ -69,7 +74,7 @@ class Board:
                     self.__log.print("Incorrect ship placement: segments of one ship must be connected.", (255, 0, 0))
 
     def draw(self):
-        for i in self.__segments:
+        for i in self.segments:
             i.draw()
 
         text_top = [self.__font.render(x, True, (225, 225, 225)) for x in ['A', 'B', 'C', 'D', 'E', 'F', 'G',
