@@ -13,7 +13,7 @@ class ShipMenu:
 
     def draw(self):
         if self.__visible:
-            for i, name in zip(self.__borders, ("x2", "x3", "x4", "x5")):
+            for i, name in zip(self.__borders, ("x2", "x3", "x4", "x6")):
                 py.draw.rect(self.__surface, (255, 255, 255), i, 1)
 
                 rect = py.Rect(i.x + 45, i.y + 5, 20, 20)
@@ -51,11 +51,11 @@ class ShipMenu:
                         self.__log.print("You have no 4 - segments ships left", (255, 0, 0))
                 elif i == 3:
                     if self.__board.number_of_ships[3] > 0:
-                        self.__board.ship_length = 5
+                        self.__board.ship_length = 6
                         self.__log.print("Ship length set to 5")
                         self.__board.number_of_ships[3] -= 1
                     else:
-                        self.__log.print("You have no 5 - segments ships left", (255, 0, 0))
+                        self.__log.print("You have no 6 - segments ships left", (255, 0, 0))
                 if self.__board.number_of_ships == [0, 0, 0, 0] and self.__board.ship_length == 0:
                     self.__visible = False
 

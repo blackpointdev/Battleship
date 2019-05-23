@@ -9,30 +9,34 @@ class AI:
         self.__board_player = board_player
 
     def generate_ships(self):
-        # while self.__board_ai.number_of_ships != [0, 0, 0, 0]:
+        while self.__board_ai.number_of_ships != [0, 0, 0, 0]:
 
-        # 2-segments ships generation
-        for i in range(2):
-            while True:
-                pos = random.randint(0, 99)
-                if pos not in self.__board_ai.ships:
-                    index, available = validate_ship_position(self.__board_ai.segments, self.__board_ai.log,
-                                                          self.__board_ai.ship_status, pos)
-                    if index >= 0:
+            # 2-segments ships generation
+            for i in range(2):
+                while True:
+                    pos = random.randint(0, 99)
+                    if pos not in self.__board_ai.ships:
+                        index, available = validate_ship_position(self.__board_ai.segments, self.__board_ai.log,
+                                                              self.__board_ai.ship_status, pos)
+                        if index >= 0:
+                            print(pos)
+                            break
+
+                self.__board_ai.ships.append(index)
+                self.__board_ai.segments[index].status = self.__board_ai.ship_status
+
+                for j in range(15):
+                    direction = random.randint(0, len(available) - 1)
+                    tmp, tmp2 = validate_ship_position(self.__board_ai.segments, self.__board_ai.log,
+                                                            self.__board_ai.ship_status, direction)
+                    if tmp >= 0:
+                        print(available[direction])
+                        self.__board_ai.ships.append(available[direction])
+                        self.__board_ai.segments[available[direction]].status = self.__board_ai.ship_status
+                        self.__board_ai.ship_status += 1
                         break
 
-            self.__board_ai.ships.append(index)
-            self.__board_ai.segments[index].status = self.__board_ai.ship_status
-
-            for j in range(15):
-                direction = random.randint(0, len(available) - 1)
-                tmp, available = validate_ship_position(self.__board_ai.segments, self.__board_ai.log,
-                                                        self.__board_ai.ship_status, direction)
-                if available != (-10, -10):
-                    self.__board_ai.ships.append(available[direction])
-                    self.__board_ai.segments[available[direction]].status = 1
-                    self.__board_ai.ship_status += 1
-                    break
+            break
 
             # 3-segments ships generation
             # for i in range(2):

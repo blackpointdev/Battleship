@@ -6,6 +6,7 @@ def coord_to_index(pos, segments):
     for segment in segments:
         if segment.get_rect().collidepoint(pos[0], pos[1]):
             return i
+        i += 1
 
 def validate_ship_position(segments, log, status, i):
     try:
@@ -25,7 +26,7 @@ def validate_ship_position(segments, log, status, i):
                         segments[80].status == -1 or segments[90].status == status and \
                         segments[81].status == -1:
 
-                    available = (90, 91)
+                    available = (80, 91)
                     return i, available
                 else:
                     raise IncorrectShipPlacement
@@ -44,7 +45,7 @@ def validate_ship_position(segments, log, status, i):
         elif i % 10 == 9:
             if i == 9:
                 if (segments[8].status == -1 or segments[8].status == status) and \
-                        (segments[19].status == -1 or segment[19].status == status) and \
+                        (segments[19].status == -1 or segments[19].status == status) and \
                         segments[18].status == -1:
 
                     available = (8, 19)

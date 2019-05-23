@@ -58,7 +58,7 @@ class Board:
     def on_click(self, pos):
         if self.ship_length != 0:
             index = coord_to_index(pos, self.segments)
-            i, avail = validate_ship_position(self.segments, self.__log, self.ship_status, index)
+            i, avail = validate_ship_position(self.segments, self.log, self.ship_status, index)
 
             if i >= 0:
                 if (self.available == (-1, -1) or (i in self.available)):
@@ -71,7 +71,7 @@ class Board:
                     else:
                         self.available = avail
                 else:
-                    self.__log.print("Incorrect ship placement: segments of one ship must be connected.", (255, 0, 0))
+                    self.log.print("Incorrect ship placement: segments of one ship must be connected.", (255, 0, 0))
 
     def draw(self):
         for i in self.segments:
