@@ -21,6 +21,7 @@ board_player = Board.Board(40, 80, screen, log, "Player")
 board_ai = Board.Board(560, 80, screen, log, "AI")
 ai = Ai.AI(screen, board_ai, board_player)
 ai.generate_ships()
+log.clear()
 
 log.print("Battleship v. 1.0")
 

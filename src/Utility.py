@@ -37,7 +37,7 @@ def validate_ship_position(segments, log, status, i):
                         segments[i - 9].status == -1 and segments[i + 11].status == -1  and \
                         (segments[i + 1].status == -1 or segments[i + 1].status == status):
 
-                    available = (i - 10, i + 10, i - 1, i + 1)
+                    available = (i - 10, i + 10, i + 1)
                     return i, available
                 else:
                     raise IncorrectShipPlacement
@@ -68,7 +68,7 @@ def validate_ship_position(segments, log, status, i):
                         segments[i + 9].status == -1 and segments[i - 11].status == -1 and \
                          (segments[i - 1].status == -1 or segments[i - 1].status == status):
 
-                    available = (i - 10, i + 10, i+1, i - 1)
+                    available = (i - 10, i + 10, i - 1)
                     return i, available
                 else:
                     raise IncorrectShipPlacement

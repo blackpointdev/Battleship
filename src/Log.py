@@ -23,3 +23,6 @@ class LogWindow:
             self.__out.clear()
         self.__out.append(self.__font.render(input, True, color))
         self.__messages +=  1
+
+    def clear(self):
+        self.__out.clear()
