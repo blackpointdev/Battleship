@@ -23,41 +23,45 @@ class ShipMenu:
                 self.__surface.blit(out, (i.x + 20, i.y + 5))
 
     def on_click(self, pos):
-        i = 0
-        for border in self.__borders:
-            if border.collidepoint(pos[0], pos[1]):
-                if self.__board.ship_length != 0:
-                    break
-                if i == 0:
-                    if self.__board.number_of_ships[0] > 0:
-                        self.__board.ship_length = 2
-                        self.__log.print("Ship length set to 2")
-                        self.__board.number_of_ships[0] -= 1
-                    else:
-                        self.__log.print("You have no 2 - segments ships left", (255, 0, 0))
-                elif i == 1:
-                    if self.__board.number_of_ships[1] > 0:
-                        self.__board.ship_length = 3
-                        self.__log.print("Ship length set to 3")
-                        self.__board.number_of_ships[1] -= 1
-                    else:
-                        self.__log.print("You have no 3 - segments ships left", (255, 0, 0))
-                elif i == 2:
-                    if self.__board.number_of_ships[2] > 0:
-                        self.__board.ship_length = 4
-                        self.__log.print("Ship length set to 4")
-                        self.__board.number_of_ships[2] -= 1
-                    else:
-                        self.__log.print("You have no 4 - segments ships left", (255, 0, 0))
-                elif i == 3:
-                    if self.__board.number_of_ships[3] > 0:
-                        self.__board.ship_length = 6
-                        self.__log.print("Ship length set to 5")
-                        self.__board.number_of_ships[3] -= 1
-                    else:
-                        self.__log.print("You have no 6 - segments ships left", (255, 0, 0))
-                if self.__board.number_of_ships == [0, 0, 0, 0] and self.__board.ship_length == 0:
-                    self.__visible = False
+        if self.__visible:
+            i = 0
+            for border in self.__borders:
+                if border.collidepoint(pos[0], pos[1]):
+                    if self.__board.ship_length != 0:
+                        break
+                    if i == 0:
+                        if self.__board.number_of_ships[0] > 0:
+                            self.__board.ship_length = 2
+                            self.__log.print("Ship length set to 2")
+                            self.__board.number_of_ships[0] -= 1
+                        else:
+                            self.__log.print("You have no 2 - segments ships left", (255, 0, 0))
+                    elif i == 1:
+                        if self.__board.number_of_ships[1] > 0:
+                            self.__board.ship_length = 3
+                            self.__log.print("Ship length set to 3")
+                            self.__board.number_of_ships[1] -= 1
+                        else:
+                            self.__log.print("You have no 3 - segments ships left", (255, 0, 0))
+                    elif i == 2:
+                        if self.__board.number_of_ships[2] > 0:
+                            self.__board.ship_length = 4
+                            self.__log.print("Ship length set to 4")
+                            self.__board.number_of_ships[2] -= 1
+                        else:
+                            self.__log.print("You have no 4 - segments ships left", (255, 0, 0))
+                    elif i == 3:
+                        if self.__board.number_of_ships[3] > 0:
+                            self.__board.ship_length = 6
+                            self.__log.print("Ship length set to 6")
+                            self.__board.number_of_ships[3] -= 1
+                        else:
+                            self.__log.print("You have no 6 - segments ships left", (255, 0, 0))
 
-            else:
-                i += 1
+
+                else:
+                    i += 1
+
+        if self.__board.number_of_ships == [0, 0, 0, 0]:
+            self.__visible = False
+            self.__log.print("Place last ship and battle will begin.", (0, 255, 0))

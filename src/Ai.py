@@ -1,6 +1,5 @@
-import pygame as py
-from src.Utility import validate_ship_position
 from src.Utility import create_ship
+
 
 class AI:
     def __init__(self, surf, board_ai, board_player):
@@ -21,4 +20,3 @@ class AI:
 
         # 6-segments ships generation
         create_ship(self.__board_ai, 6, 1)
-

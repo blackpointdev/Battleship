@@ -162,3 +162,12 @@ def create_ship(board, size, ammount):
                 break
 
         board.ship_status += 1
+
+        if size == 2:
+            board.number_of_ships[0] -= 1
+        elif size == 3:
+            board.number_of_ships[1] -= 1
+        elif size == 4:
+            board.number_of_ships[2] -= 1
+        elif size == 6:
+            board.number_of_ships[3] -= 1

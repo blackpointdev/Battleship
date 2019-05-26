@@ -41,11 +41,14 @@ class Board:
         self.log = log
         self.__font = py.font.SysFont("timesnewroman", 23)
         self.is_visible = is_visible
+        self.ship_menu_visible = True
+        self.is_ready = False
 
         self.ships = []
         self.ship_length = 0
         self.ship_status = 2
         self.available = (-1, -1)
+        self.number_of_ships = [2, 2, 2, 1]
 
         # Generating board
         x = self.__x
@@ -77,6 +80,10 @@ class Board:
                         self.available = avail
                 else:
                     self.log.print("Incorrect ship placement: segments of one ship must be connected.", (255, 0, 0))
+
+                if self.number_of_ships == [0, 0, 0, 0] and self.ship_length == 0:
+                    self.is_ready = True
+                    self.log.print("Enemy is ready for you. Click board on the right to shoot.", (0, 255, 0))
 
     def draw(self):
         for i in self.segments:
