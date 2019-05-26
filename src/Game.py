@@ -47,6 +47,7 @@ while 1:
                 board_player.on_click(pos)
             elif pos[0] > 560 and pos[0] < 960 and pos[1] > 80 and pos[1] < 480 and board_player.is_ready:
                 board_ai.on_click(pos)
+                ai.shoot()
             else:
                 shipMenu.on_click(pos)
 

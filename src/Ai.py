@@ -1,4 +1,5 @@
 from src.Utility import create_ship
+import random
 
 
 class AI:
@@ -20,3 +21,11 @@ class AI:
 
         # 6-segments ships generation
         create_ship(self.__board_ai, 6, 1)
+
+    def shoot(self):
+        target = random.randint(0, 99)
+        if self.__board_player.segments[target].status > 2:
+            self.__board_player.segments[target].status = 0
+            self.__board_player.ships.remove(target)
+        else:
+            self.__board_player.segments[target].status = 1
