@@ -35,6 +35,9 @@ while 1:
         # Handling close event
         if event.type == py.QUIT: sys.exit()
         # Handling click event
+        if event.type == py.KEYDOWN:
+            if event.key == py.K_ESCAPE:
+                sys.exit()
         if event.type == py.MOUSEBUTTONUP:
             pos = py.mouse.get_pos()
             if pos[0] > 40 and pos[0] < 440 and pos[1] > 80 and pos[1] < 480:
