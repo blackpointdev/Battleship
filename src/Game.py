@@ -18,7 +18,7 @@ screen = py.display.set_mode(size)
 log = Log.LogWindow(screen)
 
 board_player = Board.Board(40, 80, screen, log, "Player")
-board_ai = Board.Board(560, 80, screen, log, "AI")
+board_ai = Board.BoardAI(560, 80, screen, log, "AI", False)
 ai = Ai.AI(screen, board_ai, board_player)
 ai.generate_ships()
 log.clear()
@@ -38,10 +38,14 @@ while 1:
         if event.type == py.KEYDOWN:
             if event.key == py.K_ESCAPE:
                 sys.exit()
+            if event.key == py.K_v:
+                board_ai.is_visible = not board_ai.is_visible
         if event.type == py.MOUSEBUTTONUP:
             pos = py.mouse.get_pos()
             if pos[0] > 40 and pos[0] < 440 and pos[1] > 80 and pos[1] < 480:
                 board_player.on_click(pos)
+            elif pos[0] > 560 and pos[0] < 960 and pos[1] > 80 and pos[1] < 480:
+                board_ai.on_click(pos)
             else:
                 shipMenu.on_click(pos)
 

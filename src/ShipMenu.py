@@ -17,7 +17,7 @@ class ShipMenu:
                 py.draw.rect(self.__surface, (255, 255, 255), i, 1)
 
                 rect = py.Rect(i.x + 45, i.y + 5, 20, 20)
-                py.draw.rect(self.__surface, (255, 0, 0), rect)
+                py.draw.rect(self.__surface, (255, 255, 255), rect)
 
                 out = self.__font.render(name, True, (255, 255, 255))
                 self.__surface.blit(out, (i.x + 20, i.y + 5))

@@ -1,5 +1,6 @@
 from src.Exceptions import IncorrectShipPlacement
 from src.Ship import *
+import random
 
 def coord_to_index(pos, segments):
     i = 0
@@ -112,3 +113,52 @@ def validate_ship_position(segments, log, status, i):
     except IncorrectShipPlacement:
         log.print("Incorrect ship placement: ships cannot be connected.", (255, 0, 0))
         return -100, (-10, -10)
+
+def create_ship(board, size, ammount):
+    for i in range(ammount):
+        while True:
+            remove = []
+            while True:
+                pos = random.randint(0, 99)
+                if pos not in board.ships:
+                    index, available = validate_ship_position(board.segments, board.log,
+                                                              board.ship_status, pos)
+                    if index >= 0:
+                        break
+
+            board.ships.append(index)
+            board.segments[index].status = board.ship_status
+            remove.append(index)
+
+            error = False
+            for k in range(size-1):
+                for j in range(16):
+                    direction = random.randint(0, len(available) - 1)
+                    tmp, tmp2 = validate_ship_position(board.segments, board.log,
+                                                       board.ship_status, available[direction])
+
+                    if size != 2:
+                        if tmp >= 0 and board.ships[-2] != available[direction]:
+                            board.ships.append(available[direction])
+                            board.segments[available[direction]].status = board.ship_status
+                            remove.append(available[direction])
+                            available = tmp2
+                            break
+                    else:
+                        if tmp >= 0:
+                            board.ships.append(available[direction])
+                            board.segments[available[direction]].status = board.ship_status
+                            remove.append(available[direction])
+                            available = tmp2
+                            break
+
+                else:
+                    error = True
+                    for element in remove:
+                        board.ships.remove(element)
+                        board.segments[element].status = -1
+                    break
+            if not error:
+                break
+
+        board.ship_status += 1
