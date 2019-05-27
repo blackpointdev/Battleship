@@ -1,4 +1,5 @@
 from src.Utility import create_ship
+from src.Utility import validate_ship_position
 import random
 
 
@@ -7,6 +8,8 @@ class AI:
         self.__surface = surf
         self.__board_ai = board_ai
         self.__board_player = board_player
+        self.__shot = [x for x in range(100)]
+        self.__available = []
 
     def generate_ships(self):
         # TODO Split to functions
@@ -23,9 +26,13 @@ class AI:
         create_ship(self.__board_ai, 6, 1)
 
     def shoot(self):
-        target = random.randint(0, 99)
+        target = random.choice(self.__shot)
         if self.__board_player.segments[target].status > 2:
             self.__board_player.segments[target].status = 0
             self.__board_player.ships.remove(target)
+
+            tmp, available = validate_ship_position(self.__board_player.segments, )
         else:
             self.__board_player.segments[target].status = 1
+
+        self.__shot.remove(target)
