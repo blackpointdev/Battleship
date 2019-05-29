@@ -65,3 +65,4 @@ class ShipMenu:
         if self.__board.number_of_ships == [0, 0, 0, 0]:
             self.__visible = False
             self.__log.print("Place last ship and battle will begin.", (0, 255, 0))
+

@@ -32,9 +32,9 @@ class AI:
             self.__board_player.segments[target].status = 0
             self.__board_player.ships.remove(target)
 
-            available = check_positions(target)
-            shot = random.choice(available)
-            target = shot
+            # available = check_positions(target)
+            # shot = random.choice(available)
+            # target = shot
         else:
             self.__board_player.segments[target].status = 1
 

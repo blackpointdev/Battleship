@@ -85,6 +85,28 @@ class Board:
                     self.is_ready = True
                     self.log.print("Enemy is ready for you. Click board on the right to shoot.", (0, 255, 0))
 
+    def reset(self):
+        if self.ship_length != 0:
+            i = 0
+            for segment in self.segments:
+                if segment.status == self.ship_status:
+                    segment.status = -1
+                    i += 1
+
+            i = i + self.ship_length
+            self.ship_length = 0
+            self.available = (-1, -1)
+
+            print(i)
+            if i == 2:
+                self.number_of_ships[0] += 1
+            elif i == 3:
+                self.number_of_ships[1] += 1
+            elif i == 4:
+                self.number_of_ships[2] += 1
+            elif i == 6:
+                self.number_of_ships[3] += 1
+
     def draw(self):
         for i in self.segments:
             i.draw(self.is_visible)
@@ -112,12 +134,14 @@ class BoardAI(Board):
         super().__init__(x, y, surface, log, title, is_visible)
 
     def on_click(self, pos):
-        index = coord_to_index(pos, self.segments)
-        if self.segments[index].status == -1:
-            self.segments[index].status = 1
-        elif self.segments[index].status > 1:
-            self.segments[index].status = 0
-            self.ships.remove(index)
+        if len(self.ships) != 0:
+            index = coord_to_index(pos, self.segments)
+            if self.segments[index].status == -1:
+                self.segments[index].status = 1
+            elif self.segments[index].status > 1:
+                self.segments[index].status = 0
+                self.ships.remove(index)
 
-            if len(self.ships) == 0:
-                self.log.print("Player wins!", (0, 255, 0))
+        else:
+            self.log.print("Player wins!", (0, 255, 0))
+            self.segments = []

@@ -44,7 +44,10 @@ while 1:
         if event.type == py.MOUSEBUTTONUP:
             pos = py.mouse.get_pos()
             if pos[0] > 40 and pos[0] < 440 and pos[1] > 80 and pos[1] < 480:
-                board_player.on_click(pos)
+                if event.button == 3:
+                     board_player.reset()
+                if event.button == 1:
+                    board_player.on_click(pos)
             elif pos[0] > 560 and pos[0] < 960 and pos[1] > 80 and pos[1] < 480 and board_player.is_ready:
                 board_ai.on_click(pos)
                 ai.shoot()
