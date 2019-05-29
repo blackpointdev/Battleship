@@ -106,6 +106,8 @@ class Board:
                 self.number_of_ships[2] += 1
             elif i == 6:
                 self.number_of_ships[3] += 1
+                if self.number_of_ships == [0, 0, 0, 1]:
+                    self.ship_length = 6
 
     def draw(self):
         for i in self.segments:
@@ -135,12 +137,20 @@ class BoardAI(Board):
 
     def on_click(self, pos):
         if len(self.ships) != 0:
+            status = -1
             index = coord_to_index(pos, self.segments)
             if self.segments[index].status == -1:
                 self.segments[index].status = 1
             elif self.segments[index].status > 1:
+                status = self.segments[index].status
                 self.segments[index].status = 0
                 self.ships.remove(index)
+
+            for segment in self.segments:
+                if segment.status == status:
+                    break
+            else:
+                self.log.print("Enemy ship destroyed!", (0, 255, 0))
 
         else:
             self.log.print("Player wins!", (0, 255, 0))
