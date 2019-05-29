@@ -1,5 +1,4 @@
 from src.Exceptions import IncorrectShipPlacement
-from src.Ship import *
 import random
 
 def coord_to_index(pos, segments):
