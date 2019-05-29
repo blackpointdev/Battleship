@@ -114,6 +114,47 @@ def validate_ship_position(segments, log, status, i):
         log.print("Incorrect ship placement: ships cannot be connected.", (255, 0, 0))
         return -100, (-10, -10)
 
+
+def check_positions(i):
+    if i % 10 == 0:
+        if i == 0:
+            available = (1, 10)
+            return available
+
+        elif i == 90:
+            available = (80, 91)
+            return available
+
+        else:
+            available = (i - 10, i + 10, i + 1)
+            return available
+
+    elif i % 10 == 9:
+        if i == 9:
+            available = (8, 19)
+            return available
+
+        elif i == 99:
+            available = (89, 98)
+            return available
+
+        else:
+            available = (i - 10, i + 10, i - 1)
+            return available
+
+    elif i > 0 and i < 10:
+        available = (i - 1, i + 1, i + 10)
+        return available
+
+    elif i > 90 and i < 100:
+        available = (i + 1, i - 1, i - 10)
+        return available
+
+    else:
+        available = (i - 1, i + 1, i - 10, i + 10)
+        return available
+
+
 def create_ship(board, size, ammount):
     for i in range(ammount):
         while True:

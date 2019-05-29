@@ -1,5 +1,5 @@
 from src.Utility import create_ship
-from src.Utility import validate_ship_position
+from src.Utility import check_positions
 import random
 
 
@@ -25,13 +25,16 @@ class AI:
         # 6-segments ships generation
         create_ship(self.__board_ai, 6, 1)
 
+
     def shoot(self):
         target = random.choice(self.__shot)
         if self.__board_player.segments[target].status > 2:
             self.__board_player.segments[target].status = 0
             self.__board_player.ships.remove(target)
 
-            tmp, available = validate_ship_position(self.__board_player.segments, )
+            available = check_positions(target)
+            shot = random.choice(available)
+            target = shot
         else:
             self.__board_player.segments[target].status = 1
 
