@@ -134,24 +134,35 @@ class Board:
 class BoardAI(Board):
     def __init__(self, x, y, surface, log, title, is_visible):
         super().__init__(x, y, surface, log, title, is_visible)
+        self.__shot = [x for x in range(100)]
+        self.__game_over = False
+
 
     def on_click(self, pos):
-        if len(self.ships) != 0:
+        if not self.__game_over:
             status = -1
             index = coord_to_index(pos, self.segments)
+
+            if index not in self.__shot:
+                return False
+
             if self.segments[index].status == -1:
                 self.segments[index].status = 1
+                self.__shot.remove(index)
             elif self.segments[index].status > 1:
                 status = self.segments[index].status
                 self.segments[index].status = 0
                 self.ships.remove(index)
+                self.__shot.remove(index)
 
             for segment in self.segments:
                 if segment.status == status:
                     break
             else:
                 self.log.print("Enemy ship destroyed!", (0, 255, 0))
+                if len(self.ships) == 0:
+                    self.log.print("PLAYER WINS!", (0, 255, 0))
+                    self.__game_over = True
 
-        else:
-            self.log.print("Player wins!", (0, 255, 0))
-            self.segments = []
+            return True
+
