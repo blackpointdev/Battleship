@@ -11,6 +11,9 @@ class ShipMenu:
         self.__board = board
         self.__log = log
 
+    def reboot(self):
+        self.__init__(self.__surface, self.__board, self.__log)
+
     def draw(self):
         if self.__visible:
             for i, name in zip(self.__borders, ("x2", "x3", "x4", "x6")):

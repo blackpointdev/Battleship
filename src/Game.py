@@ -17,14 +17,15 @@ white = 225, 225, 225
 screen = py.display.set_mode(size)
 log = Log.LogWindow(screen)
 
-board_player = Board.Board(40, 80, screen, log, "Player")
-board_ai = Board.BoardAI(560, 80, screen, log, "AI", False)
+board_player = Board.Board(40, 80, screen, log)
+board_ai = Board.BoardAI(560, 80, screen, log, False)
 ai = Ai.AI(screen, board_ai, board_player)
 ai.generate_ships()
 log.clear()
 
 log.print("Battleship v. 1.0")
-log.print("Place your ships on the battlefield.", (0, 255, 0))
+log.print("Press r to restart game, press v to activate super-vision.")
+log.print("Place your ships on the battlefield (right click cancel selection).", (0, 255, 0))
 
 shipMenu = ShipMenu.ShipMenu(screen, board_player, log)
 
@@ -41,6 +42,12 @@ while 1:
                 sys.exit()
             if event.key == py.K_v:
                 board_ai.is_visible = not board_ai.is_visible
+            if event.key == py.K_r:
+                board_player.reboot()
+                board_ai.reboot()
+                log.reboot()
+                ai.reboot()
+                shipMenu.reboot()
         if event.type == py.MOUSEBUTTONUP:
             pos = py.mouse.get_pos()
             if pos[0] > 40 and pos[0] < 435 and pos[1] > 80 and pos[1] < 480:

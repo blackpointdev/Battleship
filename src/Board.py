@@ -33,7 +33,7 @@ class BoardSegment:
 
 class Board:
     """Representation of board/sea"""
-    def __init__(self, x, y, surface, log, title, is_visible = True):
+    def __init__(self, x, y, surface, log, is_visible = True):
         self.__x = x
         self.__y = y
         self.__surf = surface
@@ -109,6 +109,9 @@ class Board:
                 if self.number_of_ships == [0, 0, 0, 1]:
                     self.ship_length = 6
 
+    def reboot(self):
+        self.__init__(self.__x, self.__y, self.__surf, self.log, self.is_visible)
+
     def draw(self):
         for i in self.segments:
             i.draw(self.is_visible)
@@ -132,11 +135,13 @@ class Board:
             y += 39
 
 class BoardAI(Board):
-    def __init__(self, x, y, surface, log, title, is_visible):
-        super().__init__(x, y, surface, log, title, is_visible)
+    def __init__(self, x, y, surface, log, is_visible):
+        super().__init__(x, y, surface, log, is_visible)
         self.__shot = [x for x in range(100)]
         self.game_over = False
 
+    def reboot(self):
+        super().reboot()
 
     def on_click(self, pos):
         if not self.game_over:

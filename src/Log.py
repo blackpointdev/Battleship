@@ -8,6 +8,8 @@ class LogWindow:
         self.__out = []
         self.__messages = 0 # Number of displayed messages
 
+    def reboot(self):
+        self.__init__(self.__surf)
     def draw(self):
         py.draw.rect(self.__surf, (255, 255, 255), self.__border, 1)
 

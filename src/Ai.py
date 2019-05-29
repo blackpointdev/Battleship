@@ -15,6 +15,9 @@ class AI:
         self.__first_shot = -1
         self.__bias = -100
 
+    def reboot(self):
+        self.__init__(self.__surface, self.__board_ai, self.__board_player)
+
     def generate_ships(self):
         # 2-segments ships generation
         create_ship(self.__board_ai, 2, 2)
@@ -73,7 +76,8 @@ class AI:
                     self.__available.clear()
                     self.__available.append(self.__first_shot - self.__bias)
 
-            self.__shot.remove(target)
+            if target in self.__shot:
+                self.__shot.remove(target)
             if target in self.__available:
                 self.__available.remove(target)
 
