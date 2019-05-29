@@ -43,7 +43,7 @@ while 1:
                 board_ai.is_visible = not board_ai.is_visible
         if event.type == py.MOUSEBUTTONUP:
             pos = py.mouse.get_pos()
-            if pos[0] > 40 and pos[0] < 440 and pos[1] > 80 and pos[1] < 480:
+            if pos[0] > 40 and pos[0] < 435 and pos[1] > 80 and pos[1] < 480:
                 if event.button == 3:
                      board_player.reset()
                 if event.button == 1:
