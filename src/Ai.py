@@ -10,9 +10,9 @@ class AI:
         self.__board_player = board_player
         self.__shot = [x for x in range(100)]
         self.__available = []
+        self.__game_over = False
 
     def generate_ships(self):
-        # TODO Split to functions
         # 2-segments ships generation
         create_ship(self.__board_ai, 2, 2)
 
@@ -27,15 +27,36 @@ class AI:
 
 
     def shoot(self):
-        target = random.choice(self.__shot)
-        if self.__board_player.segments[target].status > 2:
-            self.__board_player.segments[target].status = 0
-            self.__board_player.ships.remove(target)
+        if not self.__game_over:
+            status = -1
+            # Fair play (computer chooses random coordinates)
+            # target = random.choice(self.__shot)
+            # godlike (computer always hits one of players' ships
+            target = random.choice(self.__board_player.ships)
 
-            # available = check_positions(target)
-            # shot = random.choice(available)
-            # target = shot
-        else:
-            self.__board_player.segments[target].status = 1
+            if self.__board_player.segments[target].status > 1:
+                i = 0
+                for segment in self.__board_player.segments:
+                    if segment.status == self.__board_player.segments[target].status:
+                        self.__available.append(i)
+                    i += 1
+                status = self.__board_player.segments[target].status
+                self.__board_player.segments[target].status = 0
+                self.__board_player.ships.remove(target)
 
-        self.__shot.remove(target)
+                print(self.__available)
+
+            else:
+                self.__board_player.segments[target].status = 1
+
+            self.__shot.remove(target)
+
+            for segment in self.__board_player.segments:
+                if segment.status == status:
+                    break
+            else:
+                self.__board_player.log.print("Your ship has been destroyed!", (255, 140, 0))
+                if len(self.__board_player.ships) == 0:
+                    self.__board_player.log.print("AI WINS!", (0, 255, 0))
+                    self.__game_over = True
+                    self.__board_ai.game_over = True
